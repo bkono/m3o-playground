@@ -2,10 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
-	"os"
 )
 
 type Request struct {
@@ -17,11 +15,11 @@ type Response struct {
 }
 
 func main() {
-	token := os.Getenv("MICRO_API_TOKEN")
-	if len(token) == 0 {
-		fmt.Println("Missing MICRO_API_TOKEN")
-		return
-	}
+	// token := os.Getenv("M3O_API_TOKEN")
+	// if len(token) == 0 {
+	// 	fmt.Println("Missing M3O_API_TOKEN")
+	// 	return
+	// }
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		message := "Hello world!"
