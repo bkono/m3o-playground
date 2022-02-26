@@ -17,12 +17,10 @@ type Response struct {
 	Message string `json:"message"`
 }
 
+var hwCl *helloworld.HelloworldService
+
 func main() {
-	// token := os.Getenv("M3O_API_TOKEN")
-	// if len(token) == 0 {
-	// 	fmt.Println("Missing M3O_API_TOKEN")
-	// 	return
-	// }
+	hwCl = helloworld.NewHelloworldService(os.Getenv("M3O_API_TOKEN"))
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		message := "Hello world!"
@@ -43,12 +41,6 @@ func main() {
 				w.Write([]byte(err.Error()))
 				return
 			}
-
-			// fmt.Println(rsp, err)
-			// if len(req.Name) > 0 {
-
-			// 	message = "Hello " + req.Name + "!"
-			// }
 
 			message = call(req.Name)
 
@@ -76,8 +68,7 @@ func main() {
 }
 
 func call(name string) string {
-	helloworldService := helloworld.NewHelloworldService(os.Getenv("M3O_API_TOKEN"))
-	rsp, err := helloworldService.Call(&helloworld.CallRequest{
+	rsp, err := hwCl.Call(&helloworld.CallRequest{
 		Name: name,
 	})
 
